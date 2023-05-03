@@ -1,0 +1,4 @@
+useDynLib(ADSIHT)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp)
+export(ADSIHT, gen.data)

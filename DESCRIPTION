@@ -1,0 +1,27 @@
+Package: ADSIHT
+Type: Package
+Title: Adaptive Double Sparse Iterative Hard Thresholding
+Version: 0.1.0
+Date: 2023-03-22
+Authors@R: c(
+  person(given = "Yanhang", family = "Zhang", email = "zhangyh98@ruc.edu.cn", role = c("aut"))
+  )
+Author: Yanhang Zhang [aut, cre]
+Maintainer: Yanhang Zhang <zhangyh98@ruc.edu.cn>
+Description: An efficient toolkit for solving the high-dimensinal double sparse linear regression via iterative hard threshlding algrithm.
+License: GPL (>= 3) | file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.4.0)
+Imports: 
+    Rcpp, mvnfast, MASS
+LinkingTo: 
+    Rcpp,
+    RcppEigen,
+RoxygenNote: 7.2.3
+SystemRequirements: C++11
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
