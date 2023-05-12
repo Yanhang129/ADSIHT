@@ -1,5 +1,5 @@
 # ADSIHT
-'ADSIHT' aims to solve the high-dimensional double sparse linear regression problem, that is, a combination of element-wise and group-wise sparsity.
+`ADSIHT` aims to solve the high-dimensional double sparse linear regression problem, that is, a combination of element-wise and group-wise sparsity.
 In our paper, we show that our algorithm achieves the minimax optimality with fast linear convergence.
 
 ## Installation
