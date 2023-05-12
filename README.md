@@ -10,7 +10,7 @@ remotes::install_github("Yanhang129/ADSIHT")
 ```
 
 ## References
-Zhang, Yanhang, Zhifan Li, and Jianxin Yin. "A minimax optimal approach to high-dimensional double sparse linear regression." arXiv preprint arXiv:2305.04182 (2023).
+Zhang Yanhang, Zhifan Li, and Jianxin Yin. "A minimax optimal approach to high-dimensional double sparse linear regression." arXiv preprint arXiv:2305.04182 (2023).
 
 ## Contact
 Please direct questions and comments to the [issues page](https://github.com/abess-team/Group-splicing_codes/issues).
