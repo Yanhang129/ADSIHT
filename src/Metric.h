@@ -6,6 +6,7 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+using namespace std;
 // [[Rcpp::plugins("cpp11")]]
 
 class Metric {
@@ -38,10 +39,12 @@ public:
       return this->loss(algorithm, data);
     } else if (ic_type == 1) {
       return double(data.n) * log(this->loss(algorithm, data)) +
-        2.0 * algorithm->get_support_size();
+       this->ic_coef*(algorithm->get_group_support_size()*log(exp(1)*double(data.g_num)/algorithm->get_group_support_size())+
+       algorithm->get_support_size()*log(exp(1)*double(data.p)/algorithm->get_support_size()));
     } else if (ic_type == 2) {
-      return double(data.n) * log(this->loss(algorithm, data)) +
-        log(double(data.n)) * algorithm->get_support_size();
+      return  double(data.n) * log(this->loss(algorithm, data)) + this->ic_coef*(algorithm->get_group_support_size()*log(exp(1)*double(data.g_num)/algorithm->get_group_support_size())+
+                            algorithm->get_support_size()*log(exp(1)*double(data.p)/double(data.g_num)));
+
     } else if (ic_type == 3) {
       return double(data.n) * log(this->loss(algorithm, data)) +
         this->ic_coef*log(double(data.p)) * log(log(double(data.n))) * algorithm->get_support_size();

@@ -9,6 +9,7 @@
 // [[Rcpp::depends(RcppEigen)]]
 using namespace Rcpp;
 
-List sequential_path(Data &data, Algorithm *algorithm, Metric *metric, Eigen::VectorXd sequence, double rho, double ic_coef);
+List sequential_path(Data &data, Algorithm *algorithm, Metric *metric, Eigen::VectorXd sequence, double rho, double ic_coef, double coef1, double coef2);
+List sequential_path_eta(Data &data, Algorithm *algorithm, Metric *metric, Eigen::VectorXd sequence, double rho, double ic_coef, double coef1, double coef2, double eta, int max_iter);
 
 #endif //SRC_PATH_H

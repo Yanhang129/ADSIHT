@@ -5,6 +5,7 @@
 using namespace Rcpp;
 
 double Delta(double s_0, int m, int d);
+Eigen::VectorXd tau_eta(Eigen::MatrixXd &X, Eigen::VectorXd &y, Eigen::VectorXd &beta, Eigen::VectorXd &gadient, double eta, Eigen::VectorXi &gindex, Eigen::VectorXi &gsize, double lambda, double s_0, int m, int p, int max_iter);
 Eigen::VectorXd tau(Eigen::MatrixXd &X, Eigen::VectorXd &y, Eigen::VectorXd &beta, Eigen::VectorXi &gindex, Eigen::VectorXi &gsize, double lambda, double s_0, int m, int p);
 int group_support_size(Eigen::VectorXd &beta, Eigen::VectorXi &gindex, Eigen::VectorXi &gsize, int m);
 Eigen::VectorXi support_set(Eigen::VectorXd &beta, int p, int size);

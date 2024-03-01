@@ -44,10 +44,15 @@ ADSIHT <- function(x, y, group,
                   s0,
                   kappa = 0.9,
                   ic.type = c("ebic", "sic", "bic", "aic", "loss"),
-                  ic.scale = 1.0,
-                  ic.coef = 1.0,
+                  ic.scale = 3.0,
+                  ic.coef = 3.0,
                   L = 5,
-                  weight = rep(1, nrow(x)))
+                  weight = rep(1, nrow(x)),
+                  coef1 = 1,
+                  coef2 = 1,
+                  eta = 0.8,
+                  max_iter = 20,
+                  method = c("ols", "stepsize"))
 {
   if(missing(group)) group <- 1:ncol(x)
   p <- ncol(x)
@@ -73,7 +78,11 @@ ADSIHT <- function(x, y, group,
                     "sic" = 3,
                     "ebic" = 4
                     )
-  res <- DSIHT_Cpp(x, y, weight = weight, sequence = s0, ic_type = ic_type, ic_scale = ic.scale, kappa = kappa, g_index = index, ic_coef = ic.coef)
-
+  if (method == "ols") {
+    method = TRUE
+  } else {
+    method = FALSE
+  }
+  res <- DSIHT_Cpp(x, y, weight = weight, sequence = s0, ic_type = ic_type, ic_scale = ic.scale, kappa = kappa, g_index = index, ic_coef = ic.coef, coef1 = coef1, coef2 = coef2, eta = eta, max_iter = max_iter, method = method)
   return(res)
 }

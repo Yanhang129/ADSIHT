@@ -10,6 +10,26 @@ double Delta(double s_0, int m, int d) {
   return (1/s_0*log(exp(1)*m)+log(exp(1)*d/s_0));
 }
 
+Eigen::VectorXd tau_eta(Eigen::MatrixXd &X, Eigen::VectorXd &y, Eigen::VectorXd &beta, Eigen::VectorXd &gradient, double eta, Eigen::VectorXi &gindex, Eigen::VectorXi &gsize, double lambda, double s_0, int m, int p, int max_iter) {
+  double loss = (y-X*beta).squaredNorm();
+  Eigen::VectorXd temp = Eigen::VectorXd::Zero(p);
+  for (int mm = 0; mm < max_iter; mm++) {
+    temp = beta+pow(eta, mm)*gradient;
+    for (int i = 0; i < p; i++) {
+      if (abs(temp(i)) < lambda) temp(i) = 0.0;
+    }
+    for (int i = 0; i < m; i++) {
+      if (temp.segment(gindex(i), gsize(i)).squaredNorm() < s_0*pow(lambda, 2)) {
+        temp.segment(gindex(i), gsize(i)) = Eigen::VectorXd::Zero(gsize(i));
+      }
+    }
+    if (loss >= (y-X*temp).squaredNorm()) {
+      break;
+    }
+  }
+  return temp;
+}
+
 Eigen::VectorXd tau(Eigen::MatrixXd &X, Eigen::VectorXd &y, Eigen::VectorXd &beta, Eigen::VectorXi &gindex, Eigen::VectorXi &gsize, double lambda, double s_0, int m, int p) {
     Eigen::VectorXd temp = beta+X.transpose()*(y-X*beta)/X.rows();
      for (int i = 0; i < p; i++) {

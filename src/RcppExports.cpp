@@ -12,8 +12,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // DSIHT_Cpp
-List DSIHT_Cpp(Eigen::MatrixXd& x, Eigen::VectorXd& y, Eigen::VectorXd& weight, int ic_type, double ic_scale, Eigen::VectorXd& sequence, double kappa, Eigen::VectorXi& g_index, double ic_coef);
-RcppExport SEXP _ADSIHT_DSIHT_Cpp(SEXP xSEXP, SEXP ySEXP, SEXP weightSEXP, SEXP ic_typeSEXP, SEXP ic_scaleSEXP, SEXP sequenceSEXP, SEXP kappaSEXP, SEXP g_indexSEXP, SEXP ic_coefSEXP) {
+List DSIHT_Cpp(Eigen::MatrixXd& x, Eigen::VectorXd& y, Eigen::VectorXd& weight, int ic_type, double ic_scale, Eigen::VectorXd& sequence, double kappa, Eigen::VectorXi& g_index, double ic_coef, bool method, double coef1, double coef2, double eta, int max_iter);
+RcppExport SEXP _ADSIHT_DSIHT_Cpp(SEXP xSEXP, SEXP ySEXP, SEXP weightSEXP, SEXP ic_typeSEXP, SEXP ic_scaleSEXP, SEXP sequenceSEXP, SEXP kappaSEXP, SEXP g_indexSEXP, SEXP ic_coefSEXP, SEXP methodSEXP, SEXP coef1SEXP, SEXP coef2SEXP, SEXP etaSEXP, SEXP max_iterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -26,13 +26,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type kappa(kappaSEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXi& >::type g_index(g_indexSEXP);
     Rcpp::traits::input_parameter< double >::type ic_coef(ic_coefSEXP);
-    rcpp_result_gen = Rcpp::wrap(DSIHT_Cpp(x, y, weight, ic_type, ic_scale, sequence, kappa, g_index, ic_coef));
+    Rcpp::traits::input_parameter< bool >::type method(methodSEXP);
+    Rcpp::traits::input_parameter< double >::type coef1(coef1SEXP);
+    Rcpp::traits::input_parameter< double >::type coef2(coef2SEXP);
+    Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    rcpp_result_gen = Rcpp::wrap(DSIHT_Cpp(x, y, weight, ic_type, ic_scale, sequence, kappa, g_index, ic_coef, method, coef1, coef2, eta, max_iter));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_ADSIHT_DSIHT_Cpp", (DL_FUNC) &_ADSIHT_DSIHT_Cpp, 9},
+    {"_ADSIHT_DSIHT_Cpp", (DL_FUNC) &_ADSIHT_DSIHT_Cpp, 14},
     {NULL, NULL, 0}
 };
 
