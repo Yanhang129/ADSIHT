@@ -13,10 +13,14 @@
 #' Default is \code{d^((l-1)/(L-1)) : 1 \leq l \leq L}, where d is the maximum group size.
 #' @param kappa A parameter that controls the rapid of the decrease of threshold. Default is 0.9.
 #' @param ic.type The type of criterion for choosing the support size.
-#' Available options are \code{"ebic"}, \code{"sic"}, \code{"bic"}, \code{"aic"} and \code{"loss"}.
-#' Default is \code{"ebic"}.
+#' Available options are \code{"dsic"}, \code{"loss"}.
+#' Default is \code{"dsic"}.
 #' @param ic.scale A non-negative value used for multiplying the penalty term
-#' in information criterion. Default: \code{ic.scale = 1}.
+#' in information criterion. Default: \code{ic.scale = 3}.
+#' @param ic.coef A non-negative value used for multiplying the penalty term
+#' for choosing the optimal stopping time. Default: \code{ic.coef = 3}.
+#' @param eta A parameter controls the step size in the gradient descent step.
+#' Default: \code{eta = 0.8}.
 #'
 #' @return A \code{list} object comprising:
 #' \item{beta}{A \eqn{p}-by-\code{length(s0)} matrix of coefficients, stored in column format.}
@@ -43,7 +47,7 @@
 ADSIHT <- function(x, y, group,
                   s0,
                   kappa = 0.9,
-                  ic.type = c("ebic", "sic", "bic", "aic", "loss"),
+                  ic.type = c("dsic", "loss"),
                   ic.scale = 3.0,
                   ic.coef = 3.0,
                   L = 5,
@@ -52,7 +56,7 @@ ADSIHT <- function(x, y, group,
                   coef2 = 1,
                   eta = 0.8,
                   max_iter = 20,
-                  method = c("ols", "stepsize"))
+                  method = "stepsize")
 {
   if(missing(group)) group <- 1:ncol(x)
   p <- ncol(x)
@@ -73,10 +77,7 @@ ADSIHT <- function(x, y, group,
   ic.type <- match.arg(ic.type)
   ic_type <- switch(ic.type,
                     "loss" = 0,
-                    "aic" = 1,
-                    "bic" = 2,
-                    "sic" = 3,
-                    "ebic" = 4
+                    "dsic" = 1
                     )
   if (method == "ols") {
     method = TRUE
